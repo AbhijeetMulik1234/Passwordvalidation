@@ -8,7 +8,7 @@ import { Form2 } from './form2/form2';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule, Form1, Form2],
+  imports: [RouterOutlet, CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
