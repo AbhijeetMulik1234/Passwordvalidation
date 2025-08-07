@@ -1,12 +1,17 @@
 import { Component, signal } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { calculateAge } from '../Validators/age-calculation.validator';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-form1',
-  imports: [RouterOutlet, CommonModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterOutlet],
   templateUrl: './form1.html',
   styleUrl: './form1.css',
 })
@@ -62,7 +67,7 @@ export class Form1 {
     };
   }
 
-  onSubmit() {
+  OnSubmit() {
     if (this.bankForm.valid) {
       alert('Form submitted successfully!');
       console.log(this.bankForm.value);
