@@ -1,0 +1,73 @@
+<div class="container">
+  <h2>Bank Account Registration</h2>
+
+  <form [formGroup]="bankForm" (ngSubmit)="onSubmit()">
+    <!-- Name Of The Applicant -->
+    <div>
+      <label>Name:</label>
+      <input type="text" formControlName="name" />
+      <div
+        class="error"
+        *ngIf="
+          bankForm.get('name')?.touched &&
+          bankForm.get('name')?.hasError('required')
+        "
+      >
+        Name is required.
+      </div>
+    </div>
+
+    <!-- DOB Of The Applicant-->
+    <div>
+      <label>Date of Birth:</label>
+      <input type="date" formControlName="dob" />
+      <div
+        class="error"
+        *ngIf="
+          bankForm.get('dob')?.touched &&
+          bankForm.get('dob')?.hasError('required')
+        "
+      >
+        Date of Birth is required.
+      </div>
+    </div>
+    <!-- Account Type For The User-->
+    <div>
+      <label>Account Type:</label>
+      <select formControlName="accountType">
+        <option value="">--Select--</option>
+        <option *ngFor="let type of accountTypes" [value]="type">
+          {{ type }}
+        </option>
+      </select>
+      <div
+        class="error"
+        *ngIf="
+          bankForm.get('accountType')?.touched &&
+          bankForm.get('accountType')?.hasError('required')
+        "
+      >
+        Account type is required
+      </div>
+      <div
+        class="error"
+        *ngIf="
+          bankForm.get('accountType')?.touched &&
+          bankForm.get('accountType')?.hasError('mustBeMinor')
+        "
+      >
+        You are under 18 ,you must be select minor account
+      </div>
+      <div
+        class="error"
+        *ngIf="
+          bankForm.get('accountType')?.touched &&
+          bankForm.get('accountType')?.hasError('mustBeAdult')
+        "
+      >
+        You Are 18 or older ,so you must be select Adult Account
+      </div>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+</div>
