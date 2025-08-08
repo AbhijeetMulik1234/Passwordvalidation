@@ -1,1 +1,53 @@
-<p>form3 works!</p>
+<h2>User Form</h2>
+<form [formGroup]="Userform" (ngSubmit)="onSubmit()">
+  <div class="container">
+    <!--Basic Information In Userform-->
+    <label>First Name:</label>
+    <input type="text" formControlName="firstname" />
+    <div
+      class="error"
+      *ngIf="
+        Userform.get('firstname')?.touched &&
+        Userform.get('firstname')?.required
+      "
+    >
+      First name is required(min 3 letters)
+    </div>
+    <label>Last Name:</label>
+    <input type="text" formControlName="lastname" />
+    <div
+      class="error"
+      *ngIf="
+        Userform.get('lastname')?.touched && Userform.get('lastname')?.required
+      "
+    >
+      Last name is required(max 12 letters)
+    </div>
+    <label>Email:</label>
+    <input type="email" formControlName="email" />
+    <div
+      class="error"
+      *ngIf="
+        Userform.get('firstname')?.touched &&
+        Userform.get('firstname')?.required
+      "
+    >
+      Valid Email is required
+    </div>
+    <!--Adress Group in the User form-->
+    <div formGroupName="adress">
+      <h2>Adress</h2>
+      <label>Street:</label>
+      <input formControlName="street" />
+
+      <label>City:</label>
+      <input formControlName="city" />
+
+      <label>State:</label>
+      <input formControlName="state" />
+
+      <label>Pincode:</label>
+      <input formControlName="pinCode" />
+    </div>
+  </div>
+</form>
