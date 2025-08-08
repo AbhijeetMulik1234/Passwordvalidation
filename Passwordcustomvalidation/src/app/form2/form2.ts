@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
 import { Component, NgModule } from '@angular/core';
 import {
   FormBuilder,
@@ -19,12 +19,8 @@ export class Form2 {
   RegistrationForm: FormGroup;
   accountTypes = ['Minor Account', 'Adult Account'];
   Gender = ['Male', 'Female'];
-  interests = {
-    sports: false,
-    music: false,
-    travel: false,
-    reading: false,
-  };
+  Interests = ['sports', 'music', 'travel', 'reading'];
+
   Form2: any;
 
   constructor(private fb: FormBuilder) {
@@ -34,10 +30,11 @@ export class Form2 {
       email: ['', [Validators.required, Validators.email]],
       dateofbirth: ['', [Validators.required]],
       age: ['', Validators.required],
-      accountTypes: ['', Validators.required],
+      accountType: ['', Validators.required],
       gender: ['', Validators.required],
-      interests: ['', Validators.required],
+      interest: ['', Validators.required],
       guardianname: [''],
+      selectAccountType: [''],
     });
   }
   get selectAccountType(): String {

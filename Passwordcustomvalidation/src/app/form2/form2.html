@@ -103,7 +103,7 @@
     <!--Account Type-->
     <div>
       <label>Account Type:</label>
-      <select formControlName="accountTypes">
+      <select formControlName="accountType">
         <option value="">--Select Account Type--</option>
         <option *ngFor="let type of accountTypes" [value]="type">
           {{ type }}
@@ -146,44 +146,24 @@
     <!--Interets-->
     <label>Interests:</label>
     <div>
-      <div>
-        <label>
-          <input type="checkbox" [(ngModel)]="interests.sports" name="sports" />
-          Sports
-        </label>
-        <br />
-      </div>
-
-      <div>
-        <label>
-          <input type="checkbox" [(ngModel)]="interests.music" name="music" />
-          Reading
-        </label>
-        <br />
-      </div>
-      <div>
-        <label>
-          <input type="checkbox" [(ngModel)]="interests.music" name="music" />
-          Music
-        </label>
-        <br />
-      </div>
-      <div>
-        <label>
-          <input type="checkbox" [(ngModel)]="interests.travel" name="travel" />
-          Travel
-        </label>
-        <br />
+      <div *ngFor="let item of Interests">
+        <input type="checkbox" [value]="item" />
+        {{ item }}
       </div>
     </div>
     <!--Guardian Field-->
-    <div *ngIf="selectorAccountType === 'Minor Account Type'">
+    <div
+      *ngIf="
+        RegistrationForm.get('selectAccountType')?.value ===
+        'Minor Account Type'
+      "
+    >
       <label for="guardianName">Guardian Name</label>
       <input
         type="text"
-        id="guardianName"
-        name="guardianName"
-        [formControlName]="'GuardianName'"
+        id="guardianname"
+        name="guardianname"
+        formControlName="guardianname"
       />
     </div>
 
