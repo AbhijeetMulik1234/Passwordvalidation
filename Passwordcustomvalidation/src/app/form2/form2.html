@@ -89,7 +89,7 @@
     <!--Age-->
     <div>
       <label>Age:</label>
-      <input type="number" formControlName="age" />
+      <input type="number" formControlName="age" readonly />
       <div
         class="error"
         *ngIf="
@@ -109,6 +109,30 @@
           {{ type }}
         </option>
       </select>
+
+      <div
+        class="error"
+        *ngIf="RegistrationForm.get('accountType')?.hasError('mustBeAdult')"
+      >
+        Must select Adult Account for age 18 or above
+      </div>
+      <div
+        class="error"
+        *ngIf="RegistrationForm.get('accountType')?.hasError('mustBeMinor')"
+      >
+        Must select Minor Account for age under 18
+      </div>
+    </div>
+
+    <!--Guardian Field-->
+    <div *ngIf="RegistrationForm.get('accountType')?.value === 'Minor Account'">
+      <label for="guardianname">Guardian Name</label>
+      <input
+        type="text"
+        id="guardianname"
+        name="guardianname"
+        formControlName="guardianname"
+      />
     </div>
     <!--Gender Field-->
     <div>
@@ -150,21 +174,6 @@
         <input type="checkbox" [value]="item" />
         {{ item }}
       </div>
-    </div>
-    <!--Guardian Field-->
-    <div
-      *ngIf="
-        RegistrationForm.get('selectAccountType')?.value ===
-        'Minor Account Type'
-      "
-    >
-      <label for="guardianName">Guardian Name</label>
-      <input
-        type="text"
-        id="guardianname"
-        name="guardianname"
-        formControlName="guardianname"
-      />
     </div>
 
     <button type="submit">Register</button>

@@ -8,6 +8,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
+import { calculateAge } from '../Validators/age-calculation.validator';
+import { minimumAgeValidator } from '../Validators/age.validator';
 
 @Component({
   selector: 'app-form2',
@@ -21,8 +23,6 @@ export class Form2 {
   Gender = ['Male', 'Female'];
   Interests = ['sports', 'music', 'travel', 'reading'];
 
-  Form2: any;
-
   constructor(private fb: FormBuilder) {
     this.RegistrationForm = this.fb.group({
       firstname: ['', [Validators.required, Validators.minLength(3)]],
@@ -34,13 +34,47 @@ export class Form2 {
       gender: ['', Validators.required],
       interest: ['', Validators.required],
       guardianname: [''],
-      selectAccountType: [''],
+    });
+    this.RegistrationForm.get('dateofbirth')?.valueChanges.subscribe((dob) => {
+      const age = calculateAge(dob);
+      this.RegistrationForm.get('age')?.setValue(age, { emitevent: false });
+      this.setAccountTypeValidator(age);
     });
   }
-  get selectAccountType(): String {
-    debugger;
-    return this.Form2.get('accountType')?.value;
+  setAccountTypeValidator(age: number) {
+    const accountControl = this.RegistrationForm.get('accountType');
+
+    if (!accountControl) return;
+
+    if (age >= 18) {
+      accountControl.setValidators([
+        Validators.required,
+        this.mustBeAdultAccountValidator(),
+      ]);
+    } else {
+      accountControl.setValidators([
+        Validators.required,
+        this.mustBeMinorAccountValidator(),
+      ]);
+    }
+    accountControl.updateValueAndValidity({ emitEvent: false });
   }
+
+  mustBeMinorAccountValidator() {
+    return (control: any) => {
+      return control.value === 'Minor Account' ? null : { mustBeMinor: true };
+    };
+  }
+  mustBeAdultAccountValidator() {
+    return (control: any) => {
+      return control.value === 'Adult Account' ? null : { mustBeAdult: true };
+    };
+  }
+
+  // get selectAccountType(): String {
+  //   debugger;
+  //   return this.RegistrationForm.get('accountType')?.value;
+  // }
 
   onSubmit() {
     console.log('Form Submitted:');

@@ -1,4 +1,5 @@
 export function calculateAge(dob: string | Date): number {
+  debugger;
   const dateOfBirth = new Date(dob);
   if (isNaN(dateOfBirth.getTime())) return 0;
 
