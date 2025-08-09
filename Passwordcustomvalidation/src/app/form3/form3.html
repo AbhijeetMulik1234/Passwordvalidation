@@ -8,7 +8,7 @@
       class="error"
       *ngIf="
         Userform.get('firstname')?.touched &&
-        Userform.get('firstname')?.required
+        Userform.get('firstname')?.hasError('required')
       "
     >
       First name is required(min 3 letters)
@@ -18,7 +18,8 @@
     <div
       class="error"
       *ngIf="
-        Userform.get('lastname')?.touched && Userform.get('lastname')?.required
+        Userform.get('lastname')?.touched &&
+        Userform.get('lastname')?.hasError('required')
       "
     >
       Last name is required(max 12 letters)
@@ -29,7 +30,7 @@
       class="error"
       *ngIf="
         Userform.get('firstname')?.touched &&
-        Userform.get('firstname')?.required
+        Userform.get('firstname')?.hasError('required')
       "
     >
       Valid Email is required
@@ -48,6 +49,21 @@
 
       <label>Pincode:</label>
       <input formControlName="pinCode" />
+    </div>
+    <!--Contact field in the user form-->
+    <div formGroupName="contact">
+      <h2>Contact Info:</h2>
+      <label>Phone no:</label>
+      <input formControlName="phoneno" />
+
+      <label> Alternative Phone no:</label>
+      <input formControlName="alternativephoneno" />
+
+      <label> Emergency Conntact Name:</label>
+      <input formControlName="emergencycontactname" />
+
+      <label> Emergency Conntact no:</label>
+      <input formControlName="emergencycontactnumber" />
     </div>
   </div>
 </form>
