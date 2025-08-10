@@ -9,6 +9,7 @@ import {
 
 @Component({
   selector: 'app-form3',
+  standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './form3.html',
   styleUrl: './form3.css',
@@ -33,9 +34,9 @@ export class Form3 {
         emergencycontactname: ['', Validators.required],
         emergencycontactnumber: ['', Validators.required],
       }),
-      onSubmit() {
-        console.log('Form Submitted');
-      },
     });
+  }
+  onSubmit() {
+    console.log('Form Submitted');
   }
 }
